@@ -1,3 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.example.ontrace_flutter_plugin">
+    package="com.example.ontrace_flutter_plugin">
+
+    <application>
+        <activity android:name=".SecondActivity"
+            android:exported="true">
+        </activity>
+    </application>
+
 </manifest>
