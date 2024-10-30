@@ -36,8 +36,22 @@ void main() {
     expect(methodInvoked, isTrue);
   });
 
-//TODO: to be replaced with iOS activity
   test('MethodChannel calls startIOSActivity', () async {
-    expect(1, 1);
+    bool methodInvoked = false;
+
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
+      methodChannel,
+      (MethodCall methodCall) async {
+        if (methodCall.method == 'startIOSActivity') {
+          methodInvoked = true;
+        }
+        return null;
+      },
+    );
+
+    ontraceFlutterPlugin.startIOSActivity();
+    await Future.delayed(Duration.zero);
+    expect(methodInvoked, isTrue);
   });
 }

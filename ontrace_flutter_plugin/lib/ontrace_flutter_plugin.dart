@@ -16,6 +16,9 @@ class _OntraceFlutterPluginState extends State<OntraceFlutterPlugin> {
     if (Platform.isAndroid) {
       return OntraceFlutterPluginPlatform.instance.startAndroidActivity();
     }
+    if (Platform.isIOS) {
+      return OntraceFlutterPluginPlatform.instance.startIOSActivity();
+    }
     super.initState();
   }
 
