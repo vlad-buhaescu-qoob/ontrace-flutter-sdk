@@ -20,4 +20,8 @@ abstract class OntraceFlutterPluginPlatform extends PlatformInterface {
   void startAndroidActivity() {
     throw UnimplementedError('androidActivity() has not been implemented.');
   }
+
+  void startIOSActivity() {
+    throw UnimplementedError('iOSActivity() has not been implemented.');
+  }
 }

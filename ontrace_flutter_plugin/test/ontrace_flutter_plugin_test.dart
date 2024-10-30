@@ -8,6 +8,9 @@ class MockOntraceFlutterPluginPlatform
     implements OntraceFlutterPluginPlatform {
   @override
   void startAndroidActivity() {}
+
+  @override
+  void startIOSActivity() {}
 }
 
 void main() {

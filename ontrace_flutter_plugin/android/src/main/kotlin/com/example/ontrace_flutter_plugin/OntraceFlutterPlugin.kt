@@ -34,7 +34,7 @@ class OntraceFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
         if (call.method == "startAndroidActivity") {
             if (activity != null) {
                 try {
-                    val intent = Intent(activity, SecondActivity::class.java)
+                    val intent = Intent(activity, OntraceActivity::class.java)
                     activity?.startActivity(intent)
                     result.success(true)
                 } catch (e: Exception) {
@@ -73,7 +73,7 @@ class OntraceFlutterPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 }
 
-class SecondActivity() : ComponentActivity() {
+class OntraceActivity() : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

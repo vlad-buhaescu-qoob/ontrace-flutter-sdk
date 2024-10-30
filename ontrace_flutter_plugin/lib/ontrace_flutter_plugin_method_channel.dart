@@ -8,7 +8,12 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   final methodChannel = const MethodChannel('ontrace_flutter_plugin');
 
   @override
-  void startAndroidActivity () {
+  void startAndroidActivity() {
     methodChannel.invokeMethod("startAndroidActivity");
+  }
+
+  @override
+  void startIOSActivity() {
+    methodChannel.invokeMethod("startIOSActivity");
   }
 }
