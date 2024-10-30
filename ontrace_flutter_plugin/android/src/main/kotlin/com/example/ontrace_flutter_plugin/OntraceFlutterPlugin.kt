@@ -79,6 +79,7 @@ class SecondActivity() : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            //TODO: To be replaced with OntraceSDK
             Surface(
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colorScheme.background

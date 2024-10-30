@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
-
 import 'ontrace_flutter_plugin_platform_interface.dart';
 
 class OntraceFlutterPlugin extends StatefulWidget {

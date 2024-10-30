@@ -5,11 +5,9 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 class MockOntraceFlutterPluginPlatform
     with MockPlatformInterfaceMixin
-    implements OntraceFlutterPluginPlatform {  
+    implements OntraceFlutterPluginPlatform {
   @override
   void startAndroidActivity() {}
-
-
 }
 
 void main() {
