@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -8,12 +10,28 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   final methodChannel = const MethodChannel('ontrace_flutter_plugin');
 
   @override
-  void startAndroidActivity() {
-    methodChannel.invokeMethod("startAndroidActivity");
+  Future<String> startAndroidActivity() async {
+    final completer = Completer<String>();
+    methodChannel.setMethodCallHandler((call) async {
+      if (call.method == "receiveTextFromCompose") {
+        final text = call.arguments as String;
+        completer.complete(text);
+      }
+    });
+    await methodChannel.invokeMethod("startAndroidActivity");
+    return completer.future;
   }
 
   @override
-  void startIOSActivity() {
-    methodChannel.invokeMethod("startIOSActivity");
+  Future<String> startIOSActivity() async {
+    final completer = Completer<String>();
+    methodChannel.setMethodCallHandler((call) async {
+      if (call.method == "receiveTextFromSwiftUI") {
+        final text = call.arguments as String;
+        completer.complete(text);
+      }
+    });
+    await methodChannel.invokeMethod("startIOSActivity");
+    return completer.future;
   }
 }

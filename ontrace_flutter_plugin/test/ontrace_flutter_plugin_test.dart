@@ -7,10 +7,14 @@ class MockOntraceFlutterPluginPlatform
     with MockPlatformInterfaceMixin
     implements OntraceFlutterPluginPlatform {
   @override
-  void startAndroidActivity() {}
+  Future<String> startAndroidActivity() async {
+    return "";
+  }
 
   @override
-  void startIOSActivity() {}
+  Future<String> startIOSActivity() async {
+    return "";
+  }
 }
 
 void main() {

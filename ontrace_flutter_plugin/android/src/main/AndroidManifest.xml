@@ -2,7 +2,7 @@
     package="com.example.ontrace_flutter_plugin">
 
     <application>
-        <activity android:name=".SecondActivity"
+        <activity android:name=".OntraceActivity"
             android:exported="true">
         </activity>
     </application>

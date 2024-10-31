@@ -17,11 +17,11 @@ abstract class OntraceFlutterPluginPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  void startAndroidActivity() {
+  Future<String> startAndroidActivity() async {
     throw UnimplementedError('androidActivity() has not been implemented.');
   }
 
-  void startIOSActivity() {
+  Future<String> startIOSActivity() async {
     throw UnimplementedError('iOSActivity() has not been implemented.');
   }
 }

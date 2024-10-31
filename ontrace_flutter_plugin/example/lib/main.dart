@@ -10,34 +10,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Example Ontrace SDK"),
-        ),
-        body: Center(
-          child: Builder(
-            builder: (context) => ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const NativePage()));
-              },
-              child: const Text(
-                "Go to native plugin",
-              ),
-            ),
-          ),
-        ),
-      ),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
 
-class NativePage extends StatelessWidget {
-  const NativePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  HomeScreenState createState() => HomeScreenState();
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  var text = "";
 
   @override
   Widget build(BuildContext context) {
-    return const OntraceFlutterPlugin();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Example Ontrace SDK')),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(
+            onPressed: () async {
+              text = await OntraceFlutterPlugin().startIdentification();
+              setState(() {});
+            },
+            child: const Text("Launch Native Activity"),
+          ),
+          Text("Your name is $text"),
+        ],
+      )),
+    );
   }
 }
