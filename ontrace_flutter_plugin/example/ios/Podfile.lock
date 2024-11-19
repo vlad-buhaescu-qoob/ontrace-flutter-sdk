@@ -2,13 +2,22 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
-  - ontrace_flutter_plugin (0.0.1):
+  - lottie-ios (4.5.0)
+  - ontrace_flutter_plugin (0.0.7):
     - Flutter
+    - OntraceSDK (~> 0.0.7)
+  - OntraceSDK (0.0.7):
+    - lottie-ios (~> 4.5.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - ontrace_flutter_plugin (from `.symlinks/plugins/ontrace_flutter_plugin/ios`)
+
+SPEC REPOS:
+  trunk:
+    - lottie-ios
+    - OntraceSDK
 
 EXTERNAL SOURCES:
   Flutter:
@@ -21,8 +30,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
-  ontrace_flutter_plugin: c2f822d63f8f112d6497ac3439a1f09742d4fdb0
+  lottie-ios: a881093fab623c467d3bce374367755c272bdd59
+  ontrace_flutter_plugin: 864262bf4c0b4a9bb40fcd632a264d031772947c
+  OntraceSDK: 9f02db429c450d2300e05adf719c70f7fea6be94
 
-PODFILE CHECKSUM: a57f30d18f102dd3ce366b1d62a55ecbef2158e5
+PODFILE CHECKSUM: 32afe3f7a8e7edb0c34ec90e8c35a47f4cc68b5e
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

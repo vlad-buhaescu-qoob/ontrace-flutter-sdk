@@ -26,11 +26,20 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   Future<String> startIOSActivity() async {
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
+      print('call values is ${call}');
       if (call.method == "receiveTextFromSwiftUI") {
+        print('call values is ${call.arguments}');
+        final text = call.arguments as String;
+        completer.complete(text);
+      }
+      
+      if (call.method == "receiveMessageFromSwift") {
+        print('call values is ${call.arguments}');
         final text = call.arguments as String;
         completer.complete(text);
       }
     });
+    
     await methodChannel.invokeMethod("startIOSActivity");
     return completer.future;
   }
