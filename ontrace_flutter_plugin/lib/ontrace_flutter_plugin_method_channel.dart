@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'ontrace_flutter_plugin_platform_interface.dart';
 
 class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
+  
   @visibleForTesting
   final methodChannel = const MethodChannel('ontrace_flutter_plugin');
 
@@ -23,24 +24,22 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   }
 
   @override
-  Future<String> startIOSActivity() async {
+  Future<String> startIOSActivity(Map<String, dynamic> parameters,
+   {required Function(String result) onMessage,
+    required Function(String result) onComplete}) async {
+
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
-      print('call values is ${call}');
       if (call.method == "receiveTextFromSwiftUI") {
-        print('call values is ${call.arguments}');
-        final text = call.arguments as String;
-        completer.complete(text);
+        onComplete("${call.arguments}");
       }
       
       if (call.method == "receiveMessageFromSwift") {
-        print('call values is ${call.arguments}');
-        final text = call.arguments as String;
-        completer.complete(text);
+        onMessage("call.arguments ${call.arguments}");
       }
     });
     
-    await methodChannel.invokeMethod("startIOSActivity");
+    await methodChannel.invokeMethod("startIOSActivity", parameters);
     return completer.future;
   }
 }

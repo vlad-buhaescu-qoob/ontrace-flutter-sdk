@@ -12,7 +12,9 @@ class MockOntraceFlutterPluginPlatform
   }
 
   @override
-  Future<String> startIOSActivity() async {
+  Future<String> startIOSActivity(Map<String, dynamic> parameters,
+      {required Function(String result) onMessage,
+      required Function(String result) onComplete}) async {
     return "";
   }
 }

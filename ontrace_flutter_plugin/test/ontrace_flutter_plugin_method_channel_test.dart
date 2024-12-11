@@ -50,7 +50,14 @@ void main() {
       },
     );
 
-    ontraceFlutterPlugin.startIOSActivity();
+    ontraceFlutterPlugin.startIOSActivity(
+      {},
+      onComplete: (result) {
+      },
+      onMessage: (result) {
+      },
+    );
+
     await Future.delayed(Duration.zero);
     expect(methodInvoked, isTrue);
   });

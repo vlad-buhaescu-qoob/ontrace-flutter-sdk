@@ -36,7 +36,13 @@ class HomeScreenState extends State<HomeScreen> {
         children: [
           ElevatedButton(
             onPressed: () async {
-              text = await OntraceFlutterPlugin().startIdentification();
+              text = await OntraceFlutterPlugin().startIdentification({"apiKey": "your_api_key"},
+              onMessage: (result) {
+                print("Flutter side onMessage $result");
+              },
+              onComplete: (result) {
+                print("Flutter side onComplete $result");
+              },);
               setState(() {});
             },
             child: const Text("Launch Native Activity"),

@@ -5,7 +5,7 @@ import QoobissCoreIdentificationSDK
 
 public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
     private var channel: FlutterMethodChannel?
-
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "ontrace_flutter_plugin", binaryMessenger: registrar.messenger())
         let instance = OntraceFlutterPlugin()
@@ -19,16 +19,20 @@ public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         if call.method == "startIOSActivity" {
-            if let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
-                swiftUIView = OntraceView(onComplete: { text in
-                    self.sendOnCompleteToFlutter(text: text)
-                    self.rootViewControllerG?.dismiss(animated: true)
-                    self.hostingController?.dismiss(animated: true)
-                }, onMessage: { text in
-                    print("onMessage is success with requestID \(text)")
-                    self.sendOnMessageToFlutter(text: text)
-                    
-                })
+            if let parameters = call.arguments as? [String: String],
+               let apiKey = parameters["apiKey"],
+               let rootViewController = UIApplication.shared.keyWindow?.rootViewController {
+                print("parameters sent are \(parameters)")
+                swiftUIView = OntraceView(
+                    apiKey: apiKey,
+                    onComplete: { text in
+                        self.sendOnCompleteToFlutter(text: text)
+                        self.rootViewControllerG?.dismiss(animated: true)
+                        result("wrong step")
+                    }, onMessage: { text in
+                        print("onMessage is success with requestID \(text)")
+                        self.sendOnMessageToFlutter(text: text)
+                    })
                 hostingController = UIHostingController(rootView: swiftUIView)
                 hostingController?.modalPresentationStyle = .fullScreen
                 rootViewController.present(hostingController!, animated: false, completion: nil)
@@ -39,54 +43,46 @@ public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
             result(FlutterMethodNotImplemented)
         }
     }
-
+    
     private func sendOnCompleteToFlutter(text: String) {
         print("sendOnCompleteToFlutter \(text)")
         channel?.invokeMethod("receiveTextFromSwiftUI", arguments: text)
     }
-
+    
     private func sendOnMessageToFlutter(text: String) {
         print("sendOnMessageToFlutter \(text)")
         channel?.invokeMethod("receiveMessageFromSwift", arguments: text)
     }
-
+    
 }
 
 struct OntraceView: View {
-
+    
     @Environment(\.presentationMode) var presentationMode
     @State private var text: String = ""
     
+    var apiKey: String
     var onComplete: (String) -> Void
     var onMessage: (String) -> Void
     
     var body: some View {
-         VStack {
-            AnyView(IdentificationFlow.startFlow(apiKey: "1FCBAD86-98AD-4C75-9D36-DE0C383EB9C4",
-                                                 onMessage: onMessage,
-                                                 onComplete: { result in
-                print("result is cancel with error and requestID \(result)")
-                switch result {
-                    case .success(let requestId, let message):
-                        onComplete(requestId)
-                        print("result is success with requestID \(result)")
-                    case .failure(let requestId, let error):
-                        onComplete(error.localizedDescription)
-                        print("result is failure with error and requestID \(result)")
-                    case .cancel(let requestId, let error):
-                        onComplete(error.localizedDescription)
-                        print("result is cancel with error and requestID \(result)")
-                        
-                    @unknown default:
-                        fatalError("Unknown result case")
-                }
+        VStack {
+            AnyView(IdentificationFlow.startFlowCrossPlatform(apiKey: apiKey,
+                                                              onMessage: onMessage,
+                                                              onComplete: { result in
+                onComplete(result)
                 presentationMode.wrappedValue.dismiss()
             }))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.red)
-                .foregroundColor(.white)
-                .ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.red)
+            .foregroundColor(.white)
+            .ignoresSafeArea()
         }
         .padding()
+        .onAppear {
+            UIApplication.shared.windows.forEach { window in
+                window.overrideUserInterfaceStyle = .light
+            }
+        }
     }
 }

@@ -3,10 +3,10 @@ PODS:
   - integration_test (0.0.1):
     - Flutter
   - lottie-ios (4.5.0)
-  - ontrace_flutter_plugin (0.0.7):
+  - ontrace_flutter_plugin (0.0.10):
     - Flutter
-    - OntraceSDK (~> 0.0.7)
-  - OntraceSDK (0.0.7):
+    - OntraceSDK (~> 0.0.10)
+  - OntraceSDK (0.0.10):
     - lottie-ios (~> 4.5.0)
 
 DEPENDENCIES:
@@ -31,8 +31,8 @@ SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
-  ontrace_flutter_plugin: 864262bf4c0b4a9bb40fcd632a264d031772947c
-  OntraceSDK: 9f02db429c450d2300e05adf719c70f7fea6be94
+  ontrace_flutter_plugin: 7c2382561b40825e057e26e51d8aabb8e7f93768
+  OntraceSDK: d5254b40a978e71d007536e9f6e68e1e997927ba
 
 PODFILE CHECKSUM: 32afe3f7a8e7edb0c34ec90e8c35a47f4cc68b5e
 
