@@ -3,11 +3,12 @@ description: "Demonstrates how to use the ontrace_flutter_plugin plugin."
 publish_to: 'none'
 
 environment:
-  sdk: ^3.5.3
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.19.1"
+
 dependencies:
   flutter:
     sdk: flutter
-
   ontrace_flutter_plugin:
     path: ../
   cupertino_icons: ^1.0.8

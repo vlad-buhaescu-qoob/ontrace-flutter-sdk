@@ -46,12 +46,12 @@ public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
     
     private func sendOnCompleteToFlutter(text: String) {
         print("sendOnCompleteToFlutter \(text)")
-        channel?.invokeMethod("receiveTextFromSwiftUI", arguments: text)
+        channel?.invokeMethod("receiveOnComplete", arguments: text)
     }
     
     private func sendOnMessageToFlutter(text: String) {
         print("sendOnMessageToFlutter \(text)")
-        channel?.invokeMethod("receiveMessageFromSwift", arguments: text)
+        channel?.invokeMethod("receiveOnMessage", arguments: text)
     }
     
 }

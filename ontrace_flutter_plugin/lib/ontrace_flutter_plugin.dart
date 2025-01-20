@@ -8,7 +8,11 @@ class OntraceFlutterPlugin {
       required Function(String result) onComplete}) async {
     if (Platform.isAndroid) {
       return (await OntraceFlutterPluginPlatform.instance
-          .startAndroidActivity());
+          .startAndroidActivity(
+        parameters,
+        onMessage: onMessage,
+        onComplete: onComplete,
+      ));
     }
     if (Platform.isIOS) {
       return (await OntraceFlutterPluginPlatform.instance.startIOSActivity(

@@ -17,7 +17,9 @@ abstract class OntraceFlutterPluginPlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String> startAndroidActivity() async {
+  Future<String> startAndroidActivity(Map<String, dynamic> parameters,
+      {required Function(String result) onMessage,
+      required Function(String result) onComplete}) async {
     throw UnimplementedError('androidActivity() has not been implemented.');
   }
 

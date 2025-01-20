@@ -1,1 +1,10 @@
 rootProject.name = 'ontrace_flutter_plugin'
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenLocal() // Ensures local Maven repo is searched
+        google()
+        mavenCentral()
+    }
+}

@@ -6,39 +6,44 @@ import 'package:flutter/services.dart';
 import 'ontrace_flutter_plugin_platform_interface.dart';
 
 class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
-  
   @visibleForTesting
   final methodChannel = const MethodChannel('ontrace_flutter_plugin');
 
   @override
-  Future<String> startAndroidActivity() async {
+  Future<String> startAndroidActivity(Map<String, dynamic> parameters,
+      {required Function(String result) onMessage,
+      required Function(String result) onComplete}) async {
+        
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
-      if (call.method == "receiveTextFromCompose") {
-        final text = call.arguments as String;
-        completer.complete(text);
+      if (call.method == "receiveOnMessage") {
+        onMessage("call.arguments ${call.arguments}");
+      }
+
+      if (call.method == "receiveOnComplete") {
+        onComplete("${call.arguments}");
       }
     });
-    await methodChannel.invokeMethod("startAndroidActivity");
+    await methodChannel.invokeMethod("startAndroidActivity", parameters);
     return completer.future;
   }
 
   @override
   Future<String> startIOSActivity(Map<String, dynamic> parameters,
-   {required Function(String result) onMessage,
-    required Function(String result) onComplete}) async {
+      {required Function(String result) onMessage,
+      required Function(String result) onComplete}) async {
 
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
-      if (call.method == "receiveTextFromSwiftUI") {
+      if (call.method == "receiveOnComplete") {
         onComplete("${call.arguments}");
       }
-      
-      if (call.method == "receiveMessageFromSwift") {
+
+      if (call.method == "receiveOnMessage") {
         onMessage("call.arguments ${call.arguments}");
       }
     });
-    
+
     await methodChannel.invokeMethod("startIOSActivity", parameters);
     return completer.future;
   }
