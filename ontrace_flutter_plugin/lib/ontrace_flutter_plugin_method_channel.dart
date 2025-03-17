@@ -13,7 +13,6 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   Future<String> startAndroidActivity(Map<String, dynamic> parameters,
       {required Function(String result) onMessage,
       required Function(String result) onComplete}) async {
-        
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
       if (call.method == "receiveOnMessage") {
@@ -21,7 +20,11 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
       }
 
       if (call.method == "receiveOnComplete") {
-        onComplete("${call.arguments}");
+        final result = "${call.arguments}";
+        onComplete(result);
+        if (!completer.isCompleted) {
+          completer.complete(result);
+        }
       }
     });
     await methodChannel.invokeMethod("startAndroidActivity", parameters);
@@ -32,15 +35,17 @@ class MethodChannelOntraceFlutterPlugin extends OntraceFlutterPluginPlatform {
   Future<String> startIOSActivity(Map<String, dynamic> parameters,
       {required Function(String result) onMessage,
       required Function(String result) onComplete}) async {
-
     final completer = Completer<String>();
     methodChannel.setMethodCallHandler((call) async {
-      if (call.method == "receiveOnComplete") {
-        onComplete("${call.arguments}");
-      }
-
       if (call.method == "receiveOnMessage") {
         onMessage("call.arguments ${call.arguments}");
+      }
+      if (call.method == "receiveOnComplete") {
+        final result = "${call.arguments}";
+        onComplete(result);
+        if (!completer.isCompleted) {
+          completer.complete(result);
+        }
       }
     });
 

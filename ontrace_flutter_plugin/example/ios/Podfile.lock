@@ -29,9 +29,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  integration_test: 2d03ab552da9a1f408709a6acf3d7ca4cb3cb307
   lottie-ios: a881093fab623c467d3bce374367755c272bdd59
-  ontrace_flutter_plugin: 7c2382561b40825e057e26e51d8aabb8e7f93768
+  ontrace_flutter_plugin: baa114ec7b0c0aa75c3a1330e5c85337dabba2bc
   OntraceSDK: d5254b40a978e71d007536e9f6e68e1e997927ba
 
 PODFILE CHECKSUM: 32afe3f7a8e7edb0c34ec90e8c35a47f4cc68b5e

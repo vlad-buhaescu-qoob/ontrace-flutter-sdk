@@ -36,7 +36,7 @@ class HomeScreenState extends State<HomeScreen> {
         children: [
           ElevatedButton(
             onPressed: () async {
-              text = await OntraceFlutterPlugin().startIdentification({"apiKey": "your_api_key"},
+              text = await OntraceFlutterPlugin.instance.startIdentification({"apiKey": "YOUR_API_KEY"},
               onMessage: (result) {
                 print("Flutter side onMessage $result");
               },

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,14 +22,14 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.qoobiss.ontracesdk.OntraceSDK
+import com.qoobiss.ontracesdk.environment.OntraceCompletionResult
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import com.qoobiss.ontracesdk.LibraryEntryPoint
-import com.qoobiss.ontracesdk.environment.OntraceCompletionResult
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -114,12 +115,12 @@ class OntraceActivity : ComponentActivity() {
 		val apiKey = extras?.getString("apiKey") ?: ""
 
 		setContent {
-			EntryPoint(apiKey = apiKey)
+			EntryPoint(apiKey = apiKey, this)
 		}
 	}
 
 	@Composable
-	fun EntryPoint(apiKey: String) {
+	fun EntryPoint(apiKey: String, activity: ComponentActivity) {
 		val view = LocalView.current
 		SideEffect {
 			val window = (view.context as ComponentActivity).window
@@ -134,12 +135,20 @@ class OntraceActivity : ComponentActivity() {
 			verticalArrangement = Arrangement.Center,
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			LibraryEntryPoint(apiKey = apiKey,
-				onMessage = {
+			// LibraryEntryPoint(apiKey = apiKey,
+			// 	onMessage = {
+			// 		sendOnMessageToFlutter(it)
+			// 	}, onComplete = {
+			// 		sendOnCompleteToFlutter(it)
+			// 	})
+			OntraceSDK.EntryPoint(apiKey,
+					{
+					Log.d("tag message","onMessage from client $it")
 					sendOnMessageToFlutter(it)
-				}, onComplete = {
+				}, {
+					Log.d("tag complete", "onComplete from client $it")
 					sendOnCompleteToFlutter(it)
-				})
+				}, activity)
 		}
 	}
 
