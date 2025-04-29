@@ -1,15 +1,14 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
-    id "dev.flutter.flutter-gradle-plugin"
-    id "org.jetbrains.kotlin.plugin.compose" version "2.1.0"
+    id("com.android.application")
+    id("kotlin-android")
+    id("dev.flutter.flutter-gradle-plugin")
+    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
 }
 
 android {
     namespace = "com.example.ontrace_flutter_plugin_example"
-    compileSdk = 35
-    ndkVersion = "25.1.8937393"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -17,7 +16,7 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_11.toString()
     }
 
     defaultConfig {
@@ -25,27 +24,18 @@ android {
         applicationId = "com.example.ontrace_flutter_plugin_example"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 24
         targetSdk = flutter.targetSdkVersion
-        versionName = "1.0.0"
-        versionCode = "1"
-        minSdkVersion="24"  
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.getByName("debug")
         }
-    }
-
-    dependencies {
-        implementation("androidx.compose.runtime:runtime:$version")
-
-        implementation("androidx.compose.ui:ui:1.7.6")
-        implementation("androidx.compose.material:material:1.7.6")
-        implementation("androidx.compose.ui:ui-tooling:1.7.6")
     }
 }
 

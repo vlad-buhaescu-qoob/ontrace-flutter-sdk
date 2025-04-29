@@ -135,12 +135,6 @@ class OntraceActivity : ComponentActivity() {
 			verticalArrangement = Arrangement.Center,
 			horizontalAlignment = Alignment.CenterHorizontally
 		) {
-			// LibraryEntryPoint(apiKey = apiKey,
-			// 	onMessage = {
-			// 		sendOnMessageToFlutter(it)
-			// 	}, onComplete = {
-			// 		sendOnCompleteToFlutter(it)
-			// 	})
 			OntraceSDK.EntryPoint(apiKey,
 					{
 					Log.d("tag message","onMessage from client $it")

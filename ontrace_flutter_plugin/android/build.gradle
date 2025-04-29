@@ -1,3 +1,7 @@
+group = "com.example.ontrace_flutter_plugin"
+version = "1.0-SNAPSHOT"
+
+
 buildscript {
     ext.kotlin_version = "2.1.0"
     repositories {
@@ -13,27 +17,26 @@ buildscript {
     }
 }
 
-plugins {
-    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        mavenLocal()
+    }
 }
-
-group = "com.example.ontrace_flutter_plugin"
-version = "1.0-SNAPSHOT"
 
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
 
 android {
     if (project.android.hasProperty("namespace")) {
         namespace = "com.example.ontrace_flutter_plugin"
     }
     ndkVersion "25.1.8937393"
+
     buildFeatures {
         compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.7.6"
     }
 
     compileSdk = 35
@@ -57,15 +60,12 @@ android {
     }
 
     dependencies {
-        // api("com.qoobiss:ontracesdk:1.0.12")
-        api("io.github.vlad-buhaescu-qoob:ontrace-sdk:0.0.32")
-        testImplementation("org.jetbrains.kotlin:kotlin-test")
-        testImplementation("org.mockito:mockito-core:5.1.0")
-        implementation("androidx.core:core-ktx:1.15.0")
+        api("io.github.vlad-buhaescu-qoob:ontrace-sdk:0.0.36")
+
         implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
         implementation("androidx.activity:activity-compose")
         implementation(platform("androidx.compose:compose-bom:2024.12.01"))
-
+        implementation("androidx.core:core-ktx:1.15.0")
         implementation("androidx.compose.ui:ui")
         implementation("androidx.compose.ui:ui-graphics")
         implementation("androidx.compose.ui:ui-tooling-preview")
@@ -79,6 +79,10 @@ android {
         implementation("androidx.compose.ui:ui:1.7.6")
         implementation("androidx.compose.material:material:1.7.6")
         implementation("androidx.compose.ui:ui-tooling:1.7.6")
+
+        testImplementation("org.jetbrains.kotlin:kotlin-test")
+        testImplementation("org.mockito:mockito-core:5.0.0")
+
     }
 
     testOptions {
@@ -93,3 +97,4 @@ android {
         }
     }
 }
+

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:ontrace_flutter_plugin/ontrace_flutter_plugin.dart';
 
@@ -9,11 +11,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
-    );
-  }
+  Widget build(BuildContext context) => const MaterialApp(home: HomeScreen());
 }
 
 class HomeScreen extends StatefulWidget {
@@ -31,25 +29,28 @@ class HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('Example Ontrace SDK')),
       body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ElevatedButton(
-            onPressed: () async {
-              text = await OntraceFlutterPlugin.instance.startIdentification({"apiKey": "YOUR_API_KEY"},
-              onMessage: (result) {
-                print("Flutter side onMessage $result");
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                text = await OntraceFlutterPlugin.instance.startIdentification(
+                  {"apiKey": "YOUR_API_KEY"},
+                  onMessage: (result) {
+                    log("Flutter side onMessage $result");
+                  },
+                  onComplete: (result) {
+                    log("Flutter side onComplete $result");
+                  },
+                );
+                setState(() {});
               },
-              onComplete: (result) {
-                print("Flutter side onComplete $result");
-              },);
-              setState(() {});
-            },
-            child: const Text("Launch Native Activity"),
-          ),
-          Text("Your name is $text"),
-        ],
-      )),
+              child: const Text("Launch Native Activity"),
+            ),
+            Text("Response is $text"),
+          ],
+        ),
+      ),
     );
   }
 }

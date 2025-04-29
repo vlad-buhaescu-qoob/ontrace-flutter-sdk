@@ -18,6 +18,7 @@ public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
     private var hostingController: UIHostingController<OntraceView?>?
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        registerFonts()
         if call.method == "startIOSActivity" {
             if let parameters = call.arguments as? [String: String],
                let apiKey = parameters["apiKey"],
@@ -54,6 +55,23 @@ public class OntraceFlutterPlugin: NSObject, FlutterPlugin {
         channel?.invokeMethod("receiveOnMessage", arguments: text)
     }
     
+    func registerFonts() {
+        let bundle = Bundle(for: OntraceCompletionResult.self)
+        
+        let fontNames = ["Roboto-Bold", "Roboto-Regular"]
+        
+        for fontName in fontNames {
+            if let url = bundle.url(forResource: fontName, withExtension: "ttf"),
+               let data = try? Data(contentsOf: url),
+               let provider = CGDataProvider(data: data as CFData),
+               let font = CGFont(provider) {
+                var error: Unmanaged<CFError>?
+                if !CTFontManagerRegisterGraphicsFont(font, &error) {
+                    print("Failed to register font: \(fontName), error: \(String(describing: error))")
+                }
+            }
+        }
+    }
 }
 
 struct OntraceView: View {
@@ -78,7 +96,6 @@ struct OntraceView: View {
             .foregroundColor(.white)
             .ignoresSafeArea()
         }
-        .padding()
         .onAppear {
             UIApplication.shared.windows.forEach { window in
                 window.overrideUserInterfaceStyle = .light
