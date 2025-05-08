@@ -1,4 +1,4 @@
-package com.example.ontrace_flutter_plugin
+package com.ontrace.ontrace_flutter_plugin
 
 import android.annotation.SuppressLint
 import android.app.Activity
