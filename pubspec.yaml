@@ -1,5 +1,5 @@
 name: ontrace_flutter_plugin
-description: "A Flutter plugin that implements native OriginSDKs"
+description: "A Flutter plugin that implements native Ontrace SDKs"
 version: 0.0.1
 repository: https://github.com/vlad-buhaescu-qoob/ontrace-flutter-sdk
 issue_tracker: https://github.com/vlad-buhaescu-qoob/ontrace-flutter-sdk/issues
@@ -22,7 +22,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.ontrace_flutter_plugin
+        package: com.ontrace.ontrace_flutter_plugin
         pluginClass: OntraceFlutterPlugin
       ios:
         pluginClass: OntraceFlutterPlugin
