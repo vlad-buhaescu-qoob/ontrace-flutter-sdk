@@ -1,5 +1,5 @@
 name: ontrace_flutter_plugin
-description: "A new Flutter plugin project."
+description: "A Flutter plugin that implements native OriginSDKs"
 version: 0.0.1
 repository: https://github.com/vlad-buhaescu-qoob/ontrace-flutter-sdk
 issue_tracker: https://github.com/vlad-buhaescu-qoob/ontrace-flutter-sdk/issues
