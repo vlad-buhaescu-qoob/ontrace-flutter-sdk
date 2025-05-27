@@ -1,3 +1,8 @@
+## [0.0.2] - 2025-05-27
+
+### Changed:
+- Updated base url inside SDK.
+
 ## [0.0.1] - 2025-04-29
 
 ### Added:
